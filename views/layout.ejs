@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="/">Home</a> |
+    <a href="/products">Shop</a> |
+    <a href="/cart">Cart</a> |
+    <% if (user) { %>
+      Hello <%= user.username %>
+    <% } else { %>
+      <a href="/login">Login</a>
+    <% } %>
+  </div>
+</header>
+
+<div class="container">
+  <%- body %>
+</div>
+</body>
+</html>

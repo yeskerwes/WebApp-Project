@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="/">Home</a>
+    <a href="/products">Shop</a>
+    <a href="/cart">Cart</a>
+  </div>
+</header>
+
+<div class="container">
+  <h2>Shop</h2>
+
+  <form>
+    <input name="q" value="<%= q %>" placeholder="Search product">
+    <button>Search</button>
+  </form>
+
+  <div class="grid">
+    <% products.forEach(p => { %>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x200">
+        <h3><a href="/product/<%= p.id %>"><%= p.name %></a></h3>
+        <p><%= p.description %></p>
+        <p class="price">$<%= p.price %></p>
+        <a class="btn" href="/add-to-cart/<%= p.id %>">Add to cart</a>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+</body>
+</html>

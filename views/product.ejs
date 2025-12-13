@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="/">Home</a>
+    <a href="/products">Shop</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <img src="https://via.placeholder.com/600x300">
+    <h2><%- product.name %></h2>
+    <p><%- product.description %></p>
+    <p class="price">$<%= product.price %></p>
+    <a class="btn" href="/add-to-cart/<%= product.id %>">Add to cart</a>
+  </div>
+</div>
+
+</body>
+</html>

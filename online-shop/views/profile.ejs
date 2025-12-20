@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="/">Home</a>
+    <a href="/products">Shop</a>
+    <a href="/profile">Profile</a>
+  </div>
+</header>
+
+<div class="container profile-page">
+
+<% if (!user) { %>
+
+  <div class="card profile-card">
+    <h2>Welcome 👋</h2>
+    <p>You are not logged in</p>
+
+    <div class="actions">
+      <a class="btn" href="/login">Login</a>
+      <a class="btn secondary" href="/register">Register</a>
+    </div>
+  </div>
+
+<% } else { %>
+
+  <div class="card profile-card">
+
+    <!-- AVATAR -->
+    <img class="avatar"
+         src="<%= user.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${user.username}` %>">
+
+    <h2><%- user.username %></h2>
+    <p><b>Role:</b> <%= user.role %></p>
+
+    <!-- CHANGE AVATAR -->
+    <form action="/profile/avatar"
+          method="POST"
+          enctype="multipart/form-data">
+
+      <!-- URL -->
+      <input
+        type="text"
+        name="avatar"
+        placeholder="Avatar image URL"
+        value="<%= user.avatar || '' %>">
+
+      <!-- FILE -->
+      <input
+        type="file"
+        name="avatarFile"
+        accept="image/*">
+
+      <button class="btn">Save avatar</button>
+    </form>
+
+
+    <div class="card-info">
+      <p class="label"><b>Card number</b></p>
+      <p><%= user.card_number %></p>
+    </div>
+
+    <a class="btn danger" href="/logout">Log out</a>
+  </div>
+
+<% } %>
+
+</div>
+
+</body>
+</html>

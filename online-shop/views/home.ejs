@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Online Shop</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
 
@@ -10,43 +11,89 @@
   <div class="container">
     <a href="/">Home</a>
     <a href="/products">Shop</a>
-    <a href="/cart">Cart</a>
-    <% if (user) { %>
-      Hello <%= user.username %>
-    <% } else { %>
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
-    <% } %>
+    <a href="/profile">Profile</a>
   </div>
 </header>
 
 <div class="container">
+
   <div class="hero">
     <h1>Welcome to Our Online Store</h1>
-    <p>Best products · Best prices · Insecure code </p>
+    <p>Best products · Best prices · Insecure code</p>
     <a class="btn" href="/products">Go to Shop</a>
   </div>
 
   <h2 style="margin-top:30px">Popular Products</h2>
 
   <div class="grid">
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200">
-      <h3>Laptop</h3>
-      <p class="price">$1200</p>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200">
-      <h3>Phone</h3>
-      <p class="price">$800</p>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200">
-      <h3>Headphones</h3>
-      <p class="price">$150</p>
+    <% products.slice(0, 3).forEach(p => { %>
+
+      <div class="card"
+           data-image="<%= p.image %>"
+           data-name="<%= p.name %>"
+           data-price="<%= p.price %>"
+           data-description="<%= p.description || 'No description' %>"
+           
+           // уязвимый ❌
+           // data-user="<%- p.user || 'admin@gmail.com' %>"
+           // защищенный ✅
+           data-user="<%= p.user || 'admin' %>"
+           
+           data-review="<%= p.review || 'Nice product!' %>">
+
+        <img src="<%- p.image %>" alt="<%- p.name %>">
+        <h3><%- p.name %></h3>
+        <p class="price">$<%= p.price %></p>
+
+      </div>
+
+    <% }) %>
+  </div>
+
+  <!-- MODAL -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <img id="modalImage">
+
+      <h2 id="modalName"></h2>
+      <p id="modalPrice"></p>
+      <p id="modalDescription"></p>
+
+      <h3>Reviews</h3>
+      <div id="reviews">
+        <div class="review">
+          <strong id="reviewUser"></strong>
+          <p id="reviewText"></p>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
+<!-- FEEDBACK BUTTON -->
+<div id="feedbackBtn">Feedback</div>
+
+<!-- FEEDBACK MODAL -->
+<div id="feedbackModal" class="feedback-modal">
+  <div class="feedback-content">
+    <span class="feedback-close">&times;</span>
+
+    <h2>Feedback</h2>
+
+    <input id="fbName" placeholder="Your name">
+    <textarea id="fbText" placeholder="Your feedback"></textarea>
+
+    <button id="fbSend">Send</button>
+
+    <h3>Messages</h3>
+
+    <div id="fbMessages"></div>
+  </div>
+</div>
+
+<script src="/js/home.js"></script>
 </body>
 </html>

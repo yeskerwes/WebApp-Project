@@ -57,6 +57,7 @@ Make sure you have installed:
 
 Check versions:
 ```bash
+cd online-shop
 node -v
 npm -v
 git --version

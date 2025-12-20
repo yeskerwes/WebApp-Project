@@ -30,40 +30,45 @@
 
 <% } else { %>
 
+  <!-- ERROR MESSAGE -->
+  <% if (typeof error !== 'undefined') { %>
+    <div class="error-message" style="color: red; font-weight: bold; margin-bottom: 15px;">
+      <%= error %>
+    </div>
+  <% } %>
+
   <div class="card profile-card">
 
     <!-- AVATAR -->
-    <img class="avatar"
-         src="<%= user.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${user.username}` %>">
+    <img
+      class="avatar"
+      src="<%= user.avatar
+        ? `/avatar/${user.avatar}`
+        : `https://api.dicebear.com/7.x/identicon/svg?seed=${user.username}` %>"
+      alt="Avatar">
 
     <h2><%- user.username %></h2>
     <p><b>Role:</b> <%= user.role %></p>
 
     <!-- CHANGE AVATAR -->
-    <form action="/profile/avatar"
-          method="POST"
-          enctype="multipart/form-data">
+    <form
+      action="/profile/avatar"
+      method="POST"
+      enctype="multipart/form-data">
 
-      <!-- URL -->
-      <input
-        type="text"
-        name="avatar"
-        placeholder="Avatar image URL"
-        value="<%= user.avatar || '' %>">
-
-      <!-- FILE -->
+      <!-- FILE ONLY (SECURE) -->
       <input
         type="file"
         name="avatarFile"
-        accept="image/*">
+        accept="image/png,image/jpeg,image/webp"
+        required>
 
       <button class="btn">Save avatar</button>
     </form>
 
-
     <div class="card-info">
       <p class="label"><b>Card number</b></p>
-      <p><%= user.card_number %></p>
+      <p><%= user.card_number || '—' %></p>
     </div>
 
     <a class="btn danger" href="/logout">Log out</a>

@@ -76,7 +76,7 @@ db.serialize(() => {
         'Apple tablet for work and creativity',
         799,
         'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04',
-        'admin@gmail.com',
+        'Samrat',
         'Very powerful tablet'
       ),
       (
@@ -84,7 +84,7 @@ db.serialize(() => {
         'Laptop for developers and designers',
         1999,
         'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
-        'admin@gmail.com',
+        'Bakdaulet',
         'Perfect for coding'
       ),
       (
@@ -92,7 +92,7 @@ db.serialize(() => {
         'Modern smartphone',
         999,
         'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9',
-        'user@gmail.com',
+        'User',
         'Fast and smooth'
       ),
       (
@@ -100,7 +100,7 @@ db.serialize(() => {
         'Wireless noise cancelling headphones',
         399,
         'https://images.unsplash.com/photo-1519677100203-a0e668c92439',
-        'user@gmail.com',
+        'Kairat',
         'Great sound quality'
       ),
       (
@@ -108,7 +108,7 @@ db.serialize(() => {
         'Professional digital camera',
         2499,
         'https://images.unsplash.com/photo-1519183071298-a2962eadcdb2',
-        'admin@gmail.com',
+        'Samal',
         'Amazing photos'
       ),
       (
@@ -116,7 +116,7 @@ db.serialize(() => {
         'Large high-resolution monitor',
         649,
         'https://images.unsplash.com/photo-1587829741301-dc798b83add3',
-        'admin@gmail.com',
+        'Water',
         'Very clear image'
       ),
       (
@@ -124,7 +124,7 @@ db.serialize(() => {
         'RGB mechanical keyboard',
         149,
         'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae',
-        'user@gmail.com',
+        'Maksat',
         'Nice typing feel'
       ),
       (
@@ -132,7 +132,7 @@ db.serialize(() => {
         'High precision mouse',
         99,
         'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7',
-        'user@gmail.com',
+        'Ayazhan',
         'Very accurate'
       ),
       (
@@ -140,7 +140,7 @@ db.serialize(() => {
         'Smartwatch with fitness tracking',
         429,
         'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
-        'admin@gmail.com',
+        'Tolebi',
         'Useful every day'
       ),
       (
@@ -148,7 +148,7 @@ db.serialize(() => {
         'Tablet for media and browsing',
         699,
         'https://images.unsplash.com/photo-1587033411391-5d9e51cce126',
-        'user@gmail.com',
+        'Assylbek',
         'Good value for money'
       )
   `);

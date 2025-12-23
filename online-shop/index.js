@@ -165,14 +165,14 @@ app.post("/profile/avatar", (req, res) => {
     if (err && err.message === "INVALID_FILE_TYPE") {
       return res.render("profile", {
         user: req.session.user,
-        error: "Неверный тип файла. Разрешены только изображения (JPG, PNG, WEBP)."
+        error: "Invalid file type. Only images are allowed. (JPG, PNG, WEBP)."
       });
     }
 
     if (err) {
       return res.render("profile", {
         user: req.session.user,
-        error: "Ошибка загрузки файла"
+        error: "File download error"
       });
     }
 

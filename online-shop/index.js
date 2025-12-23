@@ -6,7 +6,8 @@ const path = require("path");
 const multer = require("multer");
 const crypto = require("crypto");
 const fs = require("fs");
-
+const MAX_ATTEMPTS = 5;
+const LOCK_TIME = 10 * 60 * 1000;
 const app = express();
 const db = new sqlite3.Database("./data.db");
 const UPLOAD_DIR = path.join(__dirname, "uploads");

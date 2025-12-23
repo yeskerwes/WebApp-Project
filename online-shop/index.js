@@ -13,12 +13,6 @@ const db = new sqlite3.Database("./data.db");
 /* ==================================================
    SECURE UPLOAD CONFIGURATION
 ================================================== */
-
-// ❌ УЯЗВИМО
-// destination: "public/uploads"
-// filename: Date.now() + "-" + file.originalname
-
-// ✅ БЕЗОПАСНО
 const UPLOAD_DIR = path.join(__dirname, "uploads");
 
 if (!fs.existsSync(UPLOAD_DIR)) {
@@ -47,7 +41,7 @@ const upload = multer({
       !allowedMime.includes(file.mimetype) ||
       !allowedExt.includes(ext)
     ) {
-      // ❗ передаём кастомную ошибку
+      
       return cb(new Error("INVALID_FILE_TYPE"));
     }
 
@@ -56,17 +50,9 @@ const upload = multer({
 });
 
 
-/* ==================================================
-   APP CONFIG
-================================================== */
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// ❌ УЯЗВИМО: uploads доступны напрямую
-// app.use(express.static(path.join(__dirname, "public")));
-
-// ✅ БЕЗОПАСНО
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session({
@@ -232,11 +218,6 @@ app.get("/avatar/:name", (req, res) => {
 
 app.get("/products", (req, res) => {
   const q = req.query.q || "";
-
-  // ❌ SQL Injection
-  // const sql = `SELECT * FROM products WHERE name LIKE '%${q}%'`;
-
-  // ✅ Safe
   const sql = "SELECT * FROM products WHERE name LIKE ?";
 
   db.all(sql, [`%${q}%`], (err, products) => {
@@ -249,11 +230,6 @@ app.get("/products", (req, res) => {
 ================================================== */
 
 app.get("/product/:id", (req, res) => {
-
-  // ❌ SQL Injection
-  // db.get(`SELECT * FROM products WHERE id=${req.params.id}`);
-
-  // ✅ Safe
   db.get(
     "SELECT * FROM products WHERE id = ?",
     [req.params.id],
@@ -305,11 +281,6 @@ app.post("/checkout", (req, res) => {
 
 app.post("/feedback", (req, res) => {
   const { name, text } = req.body;
-
-  // ❌ Нет валидации
-  // console.log(name, text);
-
-  // ✅ Минимально безопасно
   db.run(
     "INSERT INTO feedback(name, message) VALUES(?, ?)",
     [name, text]

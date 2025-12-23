@@ -84,6 +84,3 @@ fbSend.onclick = () => {
   document.getElementById('fbName').value = ''
   document.getElementById('fbText').value = ''
 }
-
-
-

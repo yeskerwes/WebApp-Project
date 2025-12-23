@@ -9,10 +9,6 @@ const fs = require("fs");
 
 const app = express();
 const db = new sqlite3.Database("./data.db");
-
-/* ==================================================
-   SECURE UPLOAD CONFIGURATION
-================================================== */
 const UPLOAD_DIR = path.join(__dirname, "uploads");
 
 if (!fs.existsSync(UPLOAD_DIR)) {
@@ -69,20 +65,12 @@ app.use((req, res, next) => {
   next();
 });
 
-/* ==================================================
-   HOME
-================================================== */
-
 app.get("/", (req, res) => {
   db.all("SELECT * FROM products", (err, products) => {
     if (err) return res.sendStatus(500);
     res.render("home", { products });
   });
 });
-
-/* ==================================================
-   REGISTER
-================================================== */
 
 app.get("/register", (req, res) => {
   res.render("register");
@@ -101,10 +89,6 @@ app.post("/register", (req, res) => {
     () => res.redirect("/login")
   );
 });
-
-/* ==================================================
-   LOGIN
-================================================== */
 
 app.get("/login", (req, res) => {
   res.render("login", { error: null });
@@ -132,28 +116,16 @@ app.post("/login", (req, res) => {
   });
 });
 
-/* ==================================================
-   LOGOUT
-================================================== */
-
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/login");
   });
 });
 
-/* ==================================================
-   PROFILE
-================================================== */
-
 app.get("/profile", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
   res.render("profile", { user: req.session.user });
 });
-
-/* ==================================================
-   AVATAR UPLOAD
-================================================== */
 
 app.post("/profile/avatar", (req, res) => {
   upload.single("avatarFile")(req, res, (err) => {
@@ -194,9 +166,6 @@ app.post("/profile/avatar", (req, res) => {
 });
 
 
-/* ==================================================
-   SAFE AVATAR SERVE
-================================================== */
 
 app.get("/avatar/:name", (req, res) => {
   const filePath = path.join(UPLOAD_DIR, req.params.name);
@@ -212,10 +181,6 @@ app.get("/avatar/:name", (req, res) => {
   res.sendFile(filePath);
 });
 
-/* ==================================================
-   PRODUCTS
-================================================== */
-
 app.get("/products", (req, res) => {
   const q = req.query.q || "";
   const sql = "SELECT * FROM products WHERE name LIKE ?";
@@ -224,10 +189,6 @@ app.get("/products", (req, res) => {
     res.render("products", { products, q });
   });
 });
-
-/* ==================================================
-   PRODUCT
-================================================== */
 
 app.get("/product/:id", (req, res) => {
   db.get(
@@ -238,10 +199,6 @@ app.get("/product/:id", (req, res) => {
     }
   );
 });
-
-/* ==================================================
-   CART
-================================================== */
 
 app.get("/add-to-cart/:id", (req, res) => {
   if (!req.session.cart) req.session.cart = [];
@@ -261,10 +218,6 @@ app.get("/cart", (req, res) => {
   });
 });
 
-/* ==================================================
-   CHECKOUT
-================================================== */
-
 app.get("/checkout", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
   res.render("checkout");
@@ -274,10 +227,6 @@ app.post("/checkout", (req, res) => {
   req.session.cart = [];
   res.send("Order placed successfully");
 });
-
-/* ==================================================
-   FEEDBACK
-================================================== */
 
 app.post("/feedback", (req, res) => {
   const { name, text } = req.body;
@@ -289,10 +238,6 @@ app.post("/feedback", (req, res) => {
   res.json({ status: "ok" });
 });
 
-/* ==================================================
-   DB INIT
-================================================== */
-
 db.run(`
   CREATE TABLE IF NOT EXISTS feedback (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -300,10 +245,6 @@ db.run(`
     message TEXT
   )
 `);
-
-/* ==================================================
-   START
-================================================== */
 
 app.listen(3000, "0.0.0.0", () => {
   console.log("Secure server started on port 3000");

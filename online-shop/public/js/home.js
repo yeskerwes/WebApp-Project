@@ -14,7 +14,7 @@ document.querySelectorAll('.card').forEach(card => {
     modal.style.display = 'block'
 
     modalImage.src = card.dataset.image
-    modalName.textContent = card.dataset.name
+    modalName.textContent = card.dataset.role
     modalPrice.textContent = '$' + card.dataset.price
     modalDescription.textContent = card.dataset.description
 
